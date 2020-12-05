@@ -25,7 +25,7 @@
   },
   "scripts": {
     "test": "jest",
-    "start": "node dist/"
+    "start": "npx tsc && node dist/"
   },
   "author": "Thiago Viana Avelar de Souza",
   "license": "ISC"
