@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <style>
+      body {
+        width: 1280px;
+        height: 720px;
+        margin: 0;
+        position: relative;
+        box-sizing: border-box;
+        background-image: url("{{imgEverest}}");
+        background-repeat: no-repeat;
+        font-size: 62.5%;
+      }
+
+      #titulo {
+        position: absolute;
+        font-size: 5rem;
+        color: #fff;
+        left: 50px;
+        top: 60px;
+        margin: 0;
+        padding: 0;
+      }
+      #views {
+        position: absolute;
+        font-size: 7.5rem;
+        margin: 0;
+        padding: 0;
+        top: 200px;
+        left: 50%;
+        color: #b00015;
+      }
+      #likes {
+        color: #e3e525;
+        position: absolute;
+        font-size: 6rem;
+        margin: 0;
+        padding: 0;
+        top: 400px;
+      }
+
+      #veja-como {
+        font-size: 5rem;
+        top: 600px;
+        color: #8cdd00;
+      }
+    </style>
+    <!-- <img src="everest.png"> -->
+    <h1 id="titulo">Este video tem</h1>
+    <div style="position: absolute; left: 50%;">
+      <div id="views" style="position: relative; left: -50%;">
+        {{views}} Views
+      </div>
+    </div>
+    <div style="position: absolute; left: 50%;">
+      <div id="likes" style="position: relative; left: -50%;">
+        {{likes}} Likes
+      </div>
+    </div>
+    <div style="position: absolute; left: 50%;" id="veja-como">
+      Veja como!
+    </div>
+  </body>
+</html>

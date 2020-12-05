@@ -1,6 +1,8 @@
 import fs from "fs";
+import OAuthCacheManager from "../domain/o-auth-cache-manager";
+import createFolderIfNotExists from "../utils/create-file";
 
-class OAuthCacheManager {
+class OAuthCacheManagerImpl implements OAuthCacheManager {
   
   private CACHE_DIR : string = (process.env.HOME || process.env.USERPROFILE ||
     process.env.HOMEPATH) + '\\.credentials\\cache\\';
@@ -19,21 +21,12 @@ class OAuthCacheManager {
     })
   }
 
-  saveCache( data : any ) {
-    try {
-      fs.mkdirSync(this.CACHE_DIR, {
-        recursive: true
-      });
-    } catch (err) {
-      if (err.code != 'EEXIST') {
-        throw err;
-      }
-    }
-    fs.writeFile(this.CACHE_PATH, JSON.stringify(data), (err) => {
-      if (err) throw err;
-    });
+  public async saveCache( data : any ) : Promise<void> {
+    createFolderIfNotExists(this.CACHE_DIR);
+
+    fs.writeFileSync(this.CACHE_PATH, JSON.stringify(data));
   }
 
 }
 
-export default OAuthCacheManager;
+export default OAuthCacheManagerImpl;
