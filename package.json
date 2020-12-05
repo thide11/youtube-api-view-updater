@@ -24,8 +24,9 @@
     "typescript": "^4.1.2"
   },
   "scripts": {
+    "postinstall": "tsc",
     "test": "jest",
-    "start": "tsc && node dist/"
+    "start": "node dist/"
   },
   "author": "Thiago Viana Avelar de Souza",
   "license": "ISC"
