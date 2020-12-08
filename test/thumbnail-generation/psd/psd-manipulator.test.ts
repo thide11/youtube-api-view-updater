@@ -2,7 +2,7 @@
 import fs from "fs";
 import ThumbnailGenerator from "../../../src/thumbnail-generation/thumbnail-generator";
 
-it('Deve criar o template', async () => {
+it.skip('Shoul create a template', async () => {
   const params = {
     views: "100",
     likes: "47",

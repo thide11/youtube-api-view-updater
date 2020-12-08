@@ -46,16 +46,15 @@ class YoutubeApi {
       requestBody: {
         id: videoId,
         snippet: {
-          title: newTitle,//"Este video tem " + viewCount + " views",
+          title: newTitle,
           categoryId: newCategory,
-          tags: ["Debug"]
         }
       }
     })
   }
 
-  public async updateThumbnail(videoId : string, newThumnailUri : string) {
-    const buffer = fs.createReadStream(newThumnailUri);
+  public async updateThumbnail(videoId : string, newThumbnailUri : string) {
+    const buffer = fs.createReadStream(newThumbnailUri);
 
     await this.youtube.thumbnails.set({
       videoId,

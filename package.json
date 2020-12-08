@@ -26,7 +26,8 @@
   "scripts": {
     "postinstall": "tsc",
     "test": "jest",
-    "start": "node dist/"
+    "start": "node dist/",
+    "build": "npx tsc"
   },
   "author": "Thiago Viana Avelar de Souza",
   "license": "ISC"

@@ -5,22 +5,28 @@ import OAuthCacheManagerImpl from "./authentication/o-auth-cache-manager";
 import YoutubeApi from "./youtube-api/youtube-api";
 import ThumbnailGenerator from "./thumbnail-generation/thumbnail-generator";
 import express from "express";
-
 dotenv.config();
 
-const app = express();
-const port = process.env.PORT || "3000";
+const cache = new OAuthCacheManagerImpl();
+const oAuthController = new OAuthController(cache);
 
-app.get('/', async function (req : any, res : any) {
-  const cache = new OAuthCacheManagerImpl();
-  const oAuthController = new OAuthController(cache);
-  await run(oAuthController);
-  res.status(200).send("Video atualizado com sucesso!");
-});
+if(process.env.STANDALONE == "true") {
+  createExpressServer();
+} else {
+  run(oAuthController);
+}
 
-app.listen(port, () => {
-  console.log(`Listening to requests on http://localhost:${port}`);
-});
+function createExpressServer() {
+  const app = express();
+  const port = process.env.PORT || "3000";
+  app.get('/', async function (_ : any, res : any) {
+    await run(oAuthController);
+    res.status(200).send("Video updated successfully!");
+  });
+  app.listen(port, () => {
+    console.log(`Listening to requests on http://localhost:${port}`);
+  });
+}
 
 async function run(oAuthController : OAuthController) {
   if(!process.env.VIDEO_ID) {
@@ -32,25 +38,25 @@ async function run(oAuthController : OAuthController) {
   
   const videoId = process.env.VIDEO_ID;
   
-  console.log("--Pegando contagem de visualizações atual--")
+  console.log("--Taking current view count--")
   const videoYoutubeData = await youtubeApi.getVideoInfo(videoId);
-  console.log(`Visualizações pegas, o video atual tem ${videoYoutubeData.viewCount} views`)
+  console.log(`Views caught, current video has ${videoYoutubeData.viewCount} views`)
 
   const title = `Este video tem ${videoYoutubeData.viewCount} views`;
 
-  console.log(`--Atualizando titulo do video--`)
+  console.log(`--Updating video title--`)
   await youtubeApi.updateVideo(videoId, title, videoYoutubeData.categoryId);
-  console.log(`Titulo do video atualizado`)
+  console.log(`Video title updated`)
 
-  console.log(`--Alterando thumbnail--`)
+  console.log(`--Changing thumbnail--`)
   const thumbnail = new ThumbnailGenerator();
-  console.log(`Gerando thumbnail pelo template`)
+  console.log(`Generating thumbnail by template`)
   const thumbnailUrl = await thumbnail.fromDefaultTemplate(videoYoutubeData);
-  console.log(`Thumbnail gerada`)
+  console.log(`Generated thumbnail`)
 
-  console.log(`Fazendo upload da nova thumbnail`)
+  console.log(`Uploading the new thumbnail`)
   await youtubeApi.updateThumbnail(videoId, thumbnailUrl);
-  console.log(`thumbnail atualizada`)
+  console.log(`Updated thumbnail`)
 
-  console.log("Video atualizado!");
+  console.log("Video updated!");
 }
