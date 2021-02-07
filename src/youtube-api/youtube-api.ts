@@ -18,7 +18,7 @@ class YoutubeApi {
     const videos = await this.youtube.videos.list({
       id: [videoId],
       part: ["statistics", "snippet"],
-      maxResults: 1
+      maxResults: 1,
     });
     if(videos.data.items?.length == 1) {
       const [ video ] = videos.data.items;
