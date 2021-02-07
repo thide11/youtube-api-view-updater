@@ -39,7 +39,7 @@ class ThumbnailGenerator {
     }
 
     await nodeHtmlToImage({
-      puppeteerArgs: ['--no-sandbox'],
+      puppeteerArgs: {"no-sandbox": true},
       output: outputDir,
       html: templateHtml,
       content: changes,
