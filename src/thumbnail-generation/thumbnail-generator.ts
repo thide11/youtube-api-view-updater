@@ -2,6 +2,7 @@ import nodeHtmlToImage from 'node-html-to-image';
 import createFolderIfNotExists from '../utils/create-file';
 import VideoYoutubeData from '../youtube-api/video-youtube-data';
 import fs from "fs";
+const puppeteer = require('puppeteer');
 
 class ThumbnailGenerator {
 
@@ -14,6 +15,7 @@ class ThumbnailGenerator {
   }
 
   public async fromDefaultTemplate( videoData : VideoYoutubeData, outputDir : string = this.DEFAULT_OUTPUT_URI ) : Promise<string> {
+    await puppeteer.launch({ args: ['--no-sandbox'] })
     const params = {
       views: videoData.viewCount,
       likes: videoData.likesCount,
@@ -37,6 +39,7 @@ class ThumbnailGenerator {
     }
 
     await nodeHtmlToImage({
+      puppeteerArgs: ['--no-sandbox'],
       output: outputDir,
       html: templateHtml,
       content: changes,
