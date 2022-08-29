@@ -30,6 +30,9 @@
     "start": "node dist/",
     "build": "npx tsc"
   },
+  "engines": {
+    "node": "16.x"
+  },
   "author": "Thiago Viana Avelar de Souza",
   "license": "ISC"
 }
