@@ -1,7 +1,7 @@
 {
   "name": "com.thide11.youtube-api-view-updater",
   "version": "0.0.1",
-  "description": "",
+  "description": "Change youtube title and thumbail based on views count",
   "main": "dist/index.js",
   "dependencies": {
     "ag-psd": "^11.1.6",
