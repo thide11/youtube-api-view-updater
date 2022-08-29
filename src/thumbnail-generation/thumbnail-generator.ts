@@ -21,6 +21,7 @@ class ThumbnailGenerator {
       views: videoData.viewCount,
       likes: videoData.likesCount,
     } as { [key: string] : any };
+    
     const htmlTemplate = fs.readFileSync("./src/thumbnail-generation/template/thumbnail.html").toString();
     const image = fs.readFileSync("./src/thumbnail-generation/template/everest.png");
     
