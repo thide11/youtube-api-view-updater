@@ -5,7 +5,6 @@
   "main": "dist/index.js",
   "dependencies": {
     "ag-psd": "^11.1.6",
-    "canvas": "^2.6.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "googleapis": "^65.0.0",
