@@ -2,7 +2,6 @@ import nodeHtmlToImage from 'node-html-to-image';
 import createFolderIfNotExists from '../utils/create-file';
 import VideoYoutubeData from '../youtube-api/video-youtube-data';
 import fs from "fs";
-const puppeteer = require('puppeteer');
 
 class ThumbnailGenerator {
 
@@ -15,13 +14,11 @@ class ThumbnailGenerator {
   }
 
   public async fromDefaultTemplate( videoData : VideoYoutubeData, outputDir : string = this.DEFAULT_OUTPUT_URI ) : Promise<string> {
-    await puppeteer.launch(
-      { args: ['--no-sandbox',  '--disable-setuid-sandbox'] })
     const params = {
       views: videoData.viewCount,
       likes: videoData.likesCount,
     } as { [key: string] : any };
-    
+
     const htmlTemplate = fs.readFileSync("./src/thumbnail-generation/template/thumbnail.html").toString();
     const image = fs.readFileSync("./src/thumbnail-generation/template/everest.png");
     
@@ -40,7 +37,7 @@ class ThumbnailGenerator {
     }
 
     await nodeHtmlToImage({
-      puppeteerArgs: {"no-sandbox": true},
+      puppeteerArgs: {"args": ["--no-sandbox", "no-sandbox"]},
       output: outputDir,
       html: templateHtml,
       content: changes,
