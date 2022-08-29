@@ -15,7 +15,8 @@ class ThumbnailGenerator {
   }
 
   public async fromDefaultTemplate( videoData : VideoYoutubeData, outputDir : string = this.DEFAULT_OUTPUT_URI ) : Promise<string> {
-    await puppeteer.launch({ args: ['--no-sandbox'] })
+    await puppeteer.launch(
+      { args: ['--no-sandbox',  '--disable-setuid-sandbox'] })
     const params = {
       views: videoData.viewCount,
       likes: videoData.likesCount,
